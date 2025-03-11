@@ -1,5 +1,6 @@
 {
   "files.associations": {
-    "cyber_cafe.h": "c"
+    "cyber_cafe.h": "c",
+    "semaphore.h": "c"
   }
 }

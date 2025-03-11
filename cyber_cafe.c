@@ -13,7 +13,7 @@ Recursos recursos;
 
 void iniciar_cyber_cafe() {
     sem_init(&recursos.pcs, 0, NUM_PCS);
-    sem_init(&recursos.vr, 0, NUM_VR);
+    sem_init(&recursos.vr, 0, NUM_VR_HEADSETS);
     sem_init(&recursos.cadeiras, 0, NUM_CADEIRAS);
 }
 
