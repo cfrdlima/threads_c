@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <time.h>
 
+// Constantes
 #define NUM_PCS 10
 #define NUM_VR_HEADSETS 6
 #define NUM_CADEIRAS 8
@@ -73,8 +74,30 @@ typedef struct {
     long tempo_espera_total;
 } GerenciadorRecursos;
 
-void iniciar_cyber_cafe();
-void finalizar_cyber_cafe();
-void *cliente_func(void *arg);
+// Variáveis globais
+extern GerenciadorRecursos gerenciador_recursos;
+extern Cliente clientes[MAX_CLIENTES];
+extern pthread_mutex_t mutex_estatisticas;
+extern bool simulacao_rodando;
+
+// Protótipos de funções
+
+// Funções do Gerenciador de Recursos
+void inicializar_gerenciador_recursos();
+bool solicitar_recursos(Cliente* cliente);
+void liberar_recursos(Cliente* cliente);
+bool verificar_seguranca(TipoCliente tipo);
+void destruir_gerenciador_recursos();
+
+// Funções do Cliente
+void inicializar_cliente(Cliente* cliente, int id, TipoCliente tipo);
+void* rotina_cliente(void* arg);
+int gerar_duracao_aleatoria(TipoCliente tipo);
+
+// Funções de Simulação
+void iniciar_simulacao(int num_clientes);
+void gerar_clientes_aleatorios(int num_clientes);
+void imprimir_estatisticas();
+void criar_cenario_deadlock();
 
 #endif // CYBER_CAFE_H
