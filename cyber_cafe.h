@@ -13,25 +13,28 @@
 #define NUM_PCS 10
 #define NUM_VR_HEADSETS 6
 #define NUM_CADEIRAS 8
-#define TEMPO_SIMULACAO 480  // 8 horas em minutos
+#define TEMPO_SIMULACAO 480 // 8 horas em minutos
 #define MAX_CLIENTES 100
 
 // Tipos de cliente
-typedef enum {
-    GAMER,     // Precisa de PC + VR, depois cadeira
+typedef enum
+{
+    GAMER,      // Precisa de PC + VR, depois cadeira
     FREELANCER, // Precisa de PC + Cadeira, depois VR
-    ESTUDANTE  // Precisa apenas do PC
+    ESTUDANTE   // Precisa apenas do PC
 } TipoCliente;
 
 // Estado do cliente
-typedef enum {
+typedef enum
+{
     ESPERANDO,
     USANDO_RECURSOS,
     FINALIZADO
 } EstadoCliente;
 
 // TAD Cliente
-typedef struct {
+typedef struct
+{
     int id;
     TipoCliente tipo;
     EstadoCliente estado;
@@ -46,24 +49,25 @@ typedef struct {
 } Cliente;
 
 // TAD Gerenciador de Recursos
-typedef struct {
+typedef struct
+{
     // Contadores de recursos
     int pcs_disponiveis;
     int vr_disponiveis;
     int cadeiras_disponiveis;
-    
+
     // Semáforos para gerenciamento de recursos
     sem_t sem_pc;
     sem_t sem_vr;
     sem_t sem_cadeira;
-    
+
     // Mutex para atualizar contadores
     pthread_mutex_t mutex_recursos;
-    
+
     // Variáveis para evitar deadlock
     pthread_mutex_t mutex_alocacao;
     bool esta_seguro;
-    
+
     // Estatísticas
     int total_clientes;
     int clientes_atendidos;
@@ -84,14 +88,14 @@ extern bool simulacao_rodando;
 
 // Funções do Gerenciador de Recursos
 void inicializar_gerenciador_recursos();
-bool solicitar_recursos(Cliente* cliente);
-void liberar_recursos(Cliente* cliente);
+bool solicitar_recursos(Cliente *cliente);
+void liberar_recursos(Cliente *cliente);
 bool verificar_seguranca(TipoCliente tipo);
 void destruir_gerenciador_recursos();
 
 // Funções do Cliente
-void inicializar_cliente(Cliente* cliente, int id, TipoCliente tipo);
-void* rotina_cliente(void* arg);
+void inicializar_cliente(Cliente *cliente, int id, TipoCliente tipo);
+void *rotina_cliente(void *arg);
 int gerar_duracao_aleatoria(TipoCliente tipo);
 
 // Funções de Simulação
